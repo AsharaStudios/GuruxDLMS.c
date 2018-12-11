@@ -174,7 +174,7 @@ int gxsha256_encrypt(gxByteBuffer* data, gxByteBuffer* digest)
     unsigned char block[128];
     bb_capacity(digest, 32);
     digest->size = 32;
-    gxsha256_update((unsigned long*)&h, block, data, &len, &totalLen);
+    gxsha256_update((unsigned long*)h, block, data, &len, &totalLen);
     return gxsha256_final(h, block, digest->data, len, totalLen);
 }
 

@@ -236,7 +236,7 @@ int gxmd5_encrypt(gxByteBuffer* data, gxByteBuffer* digest)
     unsigned int state[4] = { 0x67452301, 0xefcdab89, 0x98badcfe, 0x10325476 };
     bb_capacity(digest, 16);
 
-    gxmd5_update(data->data, data->size, buffer, (unsigned int*)&count, (unsigned int*)&state);
+    gxmd5_update(data->data, data->size, buffer, (unsigned int*)count, (unsigned int*)state);
 
     static unsigned char padding[64] = {
         0x80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -246,15 +246,15 @@ int gxmd5_encrypt(gxByteBuffer* data, gxByteBuffer* digest)
 
     // Save number of bits
     unsigned char bits[8];
-    gxmd5_encode(bits, (unsigned int*)&count, 2);
+    gxmd5_encode(bits, (unsigned int*)count, 2);
 
     // Pad out to 56 mod 64.
     unsigned int index = count[0] / 8 % 64;
     unsigned int padLen = (index < 56) ? (56 - index) : (120 - index);
-    gxmd5_update(padding, padLen, buffer, (unsigned int*)&count, (unsigned int*)&state);
+    gxmd5_update(padding, padLen, buffer, (unsigned int*)count, (unsigned int*)state);
 
     // Append length (before padding)
-    gxmd5_update(bits, 8, buffer, (unsigned int*)&count, (unsigned int*)&state);
+    gxmd5_update(bits, 8, buffer, (unsigned int*)count, (unsigned int*)state);
 
     // Store state in digest
     gxmd5_encode(digest->data, state, 4);
