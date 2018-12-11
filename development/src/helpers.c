@@ -807,10 +807,10 @@ long long hlp_stringToInt64(const char *str)
     return value;
 }
 unsigned short lfsr = 0xACE1u;
-unsigned bit;
+unsigned bitV;
 
 unsigned char hlp_rand(void)
 {
-    bit = ((lfsr >> 0) ^ (lfsr >> 2) ^ (lfsr >> 3) ^ (lfsr >> 5)) & 1;
-    return (unsigned char)(lfsr = (unsigned short)((lfsr >> 1) | (bit << 15)));
+    bitV = ((lfsr >> 0) ^ (lfsr >> 2) ^ (lfsr >> 3) ^ (lfsr >> 5)) & 1;
+    return (unsigned char)(lfsr = (unsigned short)((lfsr >> 1) | (bitV << 15)));
 }

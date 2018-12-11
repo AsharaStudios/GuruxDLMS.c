@@ -891,6 +891,8 @@ void bb_addDoubleAsString(
     {
 #if _MSC_VER > 1000
         sprintf_s(buff, 20, "%lf", value);
+#elif defined __XC8__
+        sprintf(buff, "%f", value);
 #else
         sprintf(buff, "%lf", value);
 #endif

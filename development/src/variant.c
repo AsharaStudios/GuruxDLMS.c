@@ -1296,6 +1296,8 @@ static int convert(dlmsVARIANT *item, DLMS_DATA_TYPE type)
 #ifndef GX_DLMS_MICROCONTROLLER
 #if _MSC_VER > 1000
             sprintf_s(buff, 250, "%lf", tmp.dblVal);
+#elif defined __XC8__
+            sprintf(buff, "%f", tmp.dblVal);
 #else
             sprintf(buff, "%lf", tmp.dblVal);
 #endif
