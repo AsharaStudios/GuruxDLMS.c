@@ -1,5 +1,5 @@
 {
-    "name": "ESPAsyncTCP",
+    "name": "GuruxDLMS",
     "description": "GuruxDLMS ANSI C Library ",
     "keywords": "dlms,gurux,ansi-c",
     "authors": {
@@ -13,11 +13,11 @@
     "version": "1.0.0",
     "license": "GPL-3.0",
     "frameworks": "arduino",
-    "platforms": "",
+    "platforms": "*",
     "export": {
         "include": [
             "development/src/*.c",
-            "development/include/*.h",
+            "development/include/*.h"
         ]
     }
 }
