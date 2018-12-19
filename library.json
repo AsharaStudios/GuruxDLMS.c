@@ -21,6 +21,10 @@
         ]
     },
     "build": {
+        "srcFilter": [
+            "+<development/src/*.c>",
+            "+<development/include/*.h>"
+        ],
         "flags": [
             "-Idevelopment/include"
         ]
