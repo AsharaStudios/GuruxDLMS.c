@@ -1,0 +1,23 @@
+{
+    "name": "ESPAsyncTCP",
+    "description": "GuruxDLMS ANSI C Library ",
+    "keywords": "dlms,gurux,ansi-c",
+    "authors": {
+        "name": "Gurux",
+        "maintainer": true
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/AsharaStudios/GuruxDLMS.c"
+    },
+    "version": "1.0.0",
+    "license": "GPL-3.0",
+    "frameworks": "arduino",
+    "platforms": "",
+    "export": {
+        "include": [
+            "development/src/*.c",
+            "development/include/*.h",
+        ]
+    }
+}
