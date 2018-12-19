@@ -19,5 +19,11 @@
             "development/src/*.c",
             "development/include/*.h"
         ]
+    },
+    "build": {
+        "srcFilter": [
+            "+<development/src/*.c>",
+            "+<development/include/*.h>"
+        ]
     }
 }
