@@ -38,8 +38,8 @@ install:
     - platformio update
 
 script:
-    - platformio run
-
+    - platformio run -d Arduino_IDE/client
+    - platformio run -d Arduino_IDE/server
 
 #
 # Template #2: The project is intended to be used as a library with examples.
