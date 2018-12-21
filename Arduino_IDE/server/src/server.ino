@@ -32,10 +32,11 @@
 // Full text may be retrieved at http://www.gnu.org/licenses/gpl-2.0.txt
 //---------------------------------------------------------------------------
 
-#include "include/dlmssettings.h"
-#include "include/variant.h"
-#include "include/cosem.h"
-#include "include/server.h"
+#include <Arduino.h>
+#include <dlmssettings.h>
+#include <variant.h>
+#include <cosem.h>
+#include <server.h>
 
 long time_current(void)
 {
@@ -432,7 +433,7 @@ void loop() {
   available = Serial.available();
   if (available > 0) {
     Serial.readBytes(tmp, available);
-    if (svr_handleRequest2(&settings, tmp, available, &reply) != 0)
+    if (svr_handleRequest2(&settings,(unsigned char *) tmp, available, &reply) != 0)
     {
       bb_clear(&reply);
     }

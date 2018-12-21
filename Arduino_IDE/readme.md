@@ -1,4 +1,7 @@
+# Arduino IDE / PlatformIO IDE Projects
+
 See An [Gurux](http://www.gurux.org/ "Gurux") for an overview.
+
 Join the Gurux Community or follow [@Gurux](https://twitter.com/guruxorg "@Gurux") for project updates.
 Gurux.DLMS library is a high-performance .NET component that helps you to read you DLMS/COSEM compatible electricity, gas or water meters. We have try to make component so easy to use that you do not need understand protocol at all.
 For more info check out [Gurux.DLMS](http://www.gurux.fi/index.php?q=Gurux.DLMS "Gurux.DLMS").
@@ -13,3 +16,7 @@ Before start you need to copy src and include folders from development folder he
 
 Read more from:
 https://github.com/gurux/GuruxDLMS.c/GuruxDLMSSimpleServerExample/readme.md
+
+## Working with PlatformIO IDE
+
+[PlatformIO](https://platformio.org) is a multiplatform microcontroller IDE, that supports the Arduino Framework. The [client](client/) and [server](server/) are PlatformIO projects. For you to begin working, are needed an IDE that has support to PlatformIO such as [Visual Studio Code](https://code.visualstudio.com) or [Atom](https://atom.io/), with the respective PlatformIO plugin installed. Both IDEs are also multiplatform.
