@@ -5,7 +5,8 @@
 #include <converters.h>
 #include <gxobjects.h>
 
-#include <Arduino.h>
+// #include <Arduino.h>
+#include <Energia.h>
 
 #include "connection.h"
 
@@ -107,7 +108,7 @@ int com_readSerialPort(
     available = Serial.available();
     if (available != 0)
     {
-      Serial.readBytes(frameData.data + frameData.size, available); //TODO: desacoplar Arduino
+      Serial.readBytes((char *)(frameData.data + frameData.size), available); //TODO: desacoplar Arduino
       frameData.size += available;
       //Search eop.
       if (frameData.size > 5)

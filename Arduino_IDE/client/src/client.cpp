@@ -31,7 +31,9 @@
 // Full text may be retrieved at http://www.gnu.org/licenses/gpl-2.0.txt
 //---------------------------------------------------------------------------
 
-#include <Arduino.h>
+// #include <Arduino.h>
+#include <Energia.h>
+
 
 #include <dlmssettings.h>
 #include <variant.h>
@@ -41,6 +43,7 @@
 #include <gxobjects.h>
 
 #include "connection.h"
+#include "rtc_func.h"
 
 //Client don't need this.
 unsigned char svr_isTarget(
@@ -78,6 +81,8 @@ gxClock clock1;
 
 void setup()
 {
+  initTime();
+
   bb_init(&frameData);
   //Set frame size.
   bb_capacity(&frameData, 128);
