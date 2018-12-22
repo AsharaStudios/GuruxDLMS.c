@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/AsharaStudios/GuruxDLMS.c.svg?branch=master)](https://travis-ci.com/AsharaStudios/GuruxDLMS.c)
+
 See An [Gurux](http://www.gurux.org/ "Gurux") for an overview.
 
 Join the Gurux Community or follow [@Gurux](https://twitter.com/guruxorg "@Gurux") for project updates.
