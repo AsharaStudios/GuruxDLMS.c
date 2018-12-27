@@ -105,10 +105,11 @@ int com_readSerialPort(
   frameData.position = 0;
   do
   {
-    available = Serial.available();
+    available = Serial1.available();
     if (available != 0)
     {
-      Serial.readBytes((char *)(frameData.data + frameData.size), available); //TODO: desacoplar Arduino
+      Serial1.readBytes((char *)(frameData.data + frameData.size), available); //TODO: desacoplar Arduino
+      Serial.write((const uint8_t*)(frameData.data + frameData.size), available);
       frameData.size += available;
       //Search eop.
       if (frameData.size > 5)
@@ -147,7 +148,8 @@ int readDLMSPacket(
   frameData.size = 0;
   frameData.position = 0;
   //Send data.
-  Serial.write(data->data, data->size); //TODO: desacoplar Arduino
+  Serial1.write(data->data, data->size); //TODO: desacoplar Arduino
+  Serial.write(data->data, data->size);
   //Loop until packet is complete.
   do
   {

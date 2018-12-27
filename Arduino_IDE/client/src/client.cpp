@@ -74,10 +74,10 @@ gxClock clock1;
 
 // Custom settings for the connection
 #define LOGICAL_NAMES 1
-#define CLIENT_ADDR 16
-#define SERVER_ADDR 1
-#define AUTH_DLMS DLMS_AUTHENTICATION_NONE
-#define PASS_DLMS NULL
+#define CLIENT_ADDR 122
+#define SERVER_ADDR 11
+#define AUTH_DLMS DLMS_AUTHENTICATION_LOW
+#define PASS_DLMS "WSD2129c"
 
 void setup()
 {
@@ -92,6 +92,8 @@ void setup()
 
   // start serial port at 9600 bps:
   Serial.begin(9600);
+  Serial1.begin(9600);
+
   while (!Serial)
   {
     ; // wait for serial port to connect. Needed for native USB port only
