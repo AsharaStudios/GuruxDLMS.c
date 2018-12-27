@@ -1,3 +1,5 @@
+#ifdef TIVAboard
+
 #include <sys/time.h>
 #include <RTC_Library.h>
 
@@ -22,3 +24,5 @@ extern "C" int _gettimeofday(struct timeval* tv, void * tzone) {
     tv->tv_usec = myEpochRTC * 1E6;
     return 0; // return non-zero for error
 } // end _gettimeofday()
+
+#endif
