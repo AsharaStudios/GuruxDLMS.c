@@ -8,6 +8,10 @@
 #include <converters.h>
 #include <gxobjects.h>
 
+#define MAIN_SERIAL Serial1
+#define AUX_SERIAL Serial
+#define DEBUG_SERIAL Serial2
+
 //Received data.
 extern gxByteBuffer frameData;
 extern dlmsSettings meterSettings;

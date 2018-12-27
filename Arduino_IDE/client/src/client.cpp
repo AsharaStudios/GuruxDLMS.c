@@ -34,7 +34,6 @@
 // #include <Arduino.h>
 #include <Energia.h>
 
-
 #include <dlmssettings.h>
 #include <variant.h>
 #include <cosem.h>
@@ -75,7 +74,7 @@ gxClock clock1;
 // Custom settings for the connection
 #define LOGICAL_NAMES 1
 #define CLIENT_ADDR 122
-#define SERVER_ADDR 11
+#define SERVER_ADDR 32767
 #define AUTH_DLMS DLMS_AUTHENTICATION_LOW
 #define PASS_DLMS "WSD2129c"
 
@@ -83,21 +82,21 @@ void setup()
 {
   initTime();
 
+  // start serial port at 9600 bps:
+  MAIN_SERIAL.begin(9600);
+  AUX_SERIAL.begin(9600);
+  DEBUG_SERIAL.begin(9600);
+  while (!(MAIN_SERIAL && AUX_SERIAL && DEBUG_SERIAL))
+  {
+    ; // wait for serial port to connect. Needed for native USB port only
+  }
+
   bb_init(&frameData);
   //Set frame size.
   bb_capacity(&frameData, 128);
   cl_init(&meterSettings, LOGICAL_NAMES, CLIENT_ADDR, SERVER_ADDR, AUTH_DLMS, PASS_DLMS, DLMS_INTERFACE_TYPE_HDLC);
 
   cosem_init(&clock1.base, DLMS_OBJECT_TYPE_CLOCK, "0.0.1.0.0.255");
-
-  // start serial port at 9600 bps:
-  Serial.begin(9600);
-  Serial1.begin(9600);
-
-  while (!Serial)
-  {
-    ; // wait for serial port to connect. Needed for native USB port only
-  }
 }
 
 void loop()
@@ -107,13 +106,16 @@ void loop()
   ret = com_initializeConnection();
   if (ret != DLMS_ERROR_CODE_OK)
   {
+    delay(2000);
     return;
   }
   //Read clock.
   ret = com_read(&clock1.base, 2);
   if (ret != DLMS_ERROR_CODE_OK)
   {
+    delay(2000);
     return;
   }
   com_close();
+  delay(5000);
 }

@@ -10,6 +10,15 @@
 
 #include "connection.h"
 
+#ifdef DEBUG_MSG
+#define BUF_SIZE 100
+char buf[BUF_SIZE];
+
+#define debug_printf(str, ...)      \
+  sprintf(buf, str, ##__VA_ARGS__); \
+  DEBUG_SERIAL.print(buf);
+#endif
+
 gxByteBuffer frameData = {};
 dlmsSettings meterSettings = {};
 
@@ -20,6 +29,9 @@ int com_initializeConnection()
   int ret = DLMS_ERROR_CODE_OK;
   message messages;
   gxReplyData reply;
+#ifdef DEBUG_MSG
+  DEBUG_SERIAL.println("Initializing connection...");
+#endif
   mes_init(&messages);
   reply_init(&reply);
 
@@ -30,6 +42,10 @@ int com_initializeConnection()
   {
     mes_clear(&messages);
     reply_clear(&reply);
+#ifdef DEBUG_MSG
+    DEBUG_SERIAL.print("SNRMRequest failed ");
+    DEBUG_SERIAL.println(err_toString(ret));
+#endif
     return ret;
   }
   mes_clear(&messages);
@@ -40,10 +56,22 @@ int com_initializeConnection()
   {
     mes_clear(&messages);
     reply_clear(&reply);
+#ifdef DEBUG_MSG
+    DEBUG_SERIAL.print("AARQRequest failed ");
+    DEBUG_SERIAL.println(err_toString(ret));
+#endif
     if (ret == DLMS_ERROR_CODE_APPLICATION_CONTEXT_NAME_NOT_SUPPORTED)
     {
+#ifdef DEBUG_MSG
+      DEBUG_SERIAL.print("Use Logical Name referencing is wrong.Change it return ret; ");
+      DEBUG_SERIAL.println(err_toString(ret));
+#endif
       return ret;
     }
+#ifdef DEBUG_MSG
+    DEBUG_SERIAL.print("AARQRequest failed ");
+    DEBUG_SERIAL.println(err_toString(ret));
+#endif
     return ret;
   }
   mes_clear(&messages);
@@ -57,6 +85,10 @@ int com_initializeConnection()
     {
       mes_clear(&messages);
       reply_clear(&reply);
+#ifdef DEBUG_MSG
+      DEBUG_SERIAL.print("Get Application Association failed ");
+      DEBUG_SERIAL.println(err_toString(ret));
+#endif
       return ret;
     }
     mes_clear(&messages);
@@ -76,7 +108,11 @@ int com_close()
   if ((ret = cl_releaseRequest(&meterSettings, &msg)) != 0 ||
       (ret = com_readDataBlock(&msg, &reply)) != 0)
   {
-    //Show error but continue close.
+//Show error but continue close.
+#ifdef DEBUG_MSG
+    DEBUG_SERIAL.print("release Request failed ");
+    DEBUG_SERIAL.println(err_toString(ret));
+#endif
   }
   reply_clear(&reply);
   mes_clear(&msg);
@@ -84,7 +120,11 @@ int com_close()
   if ((ret = cl_disconnectRequest(&meterSettings, &msg)) != 0 ||
       (ret = com_readDataBlock(&msg, &reply)) != 0)
   {
-    //Show error but continue close.
+//Show error but continue close.
+#ifdef DEBUG_MSG
+    DEBUG_SERIAL.print("Disconnect Request failed ");
+    DEBUG_SERIAL.println(err_toString(ret));
+#endif
   }
   reply_clear(&reply);
   mes_clear(&msg);
@@ -109,7 +149,7 @@ int com_readSerialPort(
     if (available != 0)
     {
       Serial1.readBytes((char *)(frameData.data + frameData.size), available); //TODO: desacoplar Arduino
-      Serial.write((const uint8_t*)(frameData.data + frameData.size), available);
+      Serial.write((const uint8_t *)(frameData.data + frameData.size), available);
       frameData.size += available;
       //Search eop.
       if (frameData.size > 5)
@@ -212,11 +252,11 @@ void com_reportError(const char *description,
 {
   char ln[25];
   char type[30];
-  /*
-    hlp_getLogicalNameToString(object->logicalName, ln);
-    obj_typeToString(object->objectType, type);
-    printf("%s %s %s:%d %s\r\n", description, type, ln, attributeOrdinal, hlp_getErrorMessage(ret));
-  */
+#ifdef DEBUG_MSG
+  hlp_getLogicalNameToString(object->logicalName, ln);
+  obj_typeToString((DLMS_OBJECT_TYPE)object->objectType, type);
+  debug_printf("%s %s %s:%d %s\r\n", description, type, ln, attributeOrdinal, err_toString(ret));
+#endif
 }
 
 //Get Association view.
@@ -234,6 +274,10 @@ int com_getAssociationView()
   }
   mes_clear(&data);
   reply_clear(&reply);
+#ifdef DEBUG_MSG
+  DEBUG_SERIAL.print("GetObjects failed ");
+  DEBUG_SERIAL.println(err_toString(ret));
+#endif
   return ret;
 }
 
@@ -290,7 +334,9 @@ int com_method(
   if ((ret = cl_method(&meterSettings, object, attributeOrdinal, params, &messages)) != 0 ||
       (ret = com_readDataBlock(&messages, &reply)) != 0)
   {
-    //    printf("Method failed %s\r\n", hlp_getErrorMessage(ret));
+#ifdef DEBUG_MSG
+    printf("Method failed %s\r\n", hlp_getErrorMessage(ret));
+#endif
   }
   mes_clear(&messages);
   reply_clear(&reply);
@@ -310,7 +356,9 @@ int com_readList(
     mes_init(&messages);
     if ((ret = cl_readList(&meterSettings, list, &messages)) != 0)
     {
-      //  printf("ReadList failed %s\r\n", hlp_getErrorMessage(ret));
+#ifdef DEBUG_MSG
+      debug_printf("ReadList failed %s\r\n", hlp_getErrorMessage(ret));
+#endif
     }
     else
     {
@@ -365,7 +413,9 @@ int com_readRowsByEntry(
       (ret = com_readDataBlock(&data, &reply)) != 0 ||
       (ret = cl_updateValue(&meterSettings, (gxObject *)object, 2, &reply.dataValue)) != 0)
   {
-    //  printf("ReadObject failed %s\r\n", hlp_getErrorMessage(ret));
+#ifdef DEBUG_MSG
+    debug_printf("ReadObject failed %s\r\n", hlp_getErrorMessage(ret));
+#endif
   }
   mes_clear(&data);
   reply_clear(&reply);
@@ -387,7 +437,9 @@ int com_readRowsByRange(
       (ret = com_readDataBlock(&data, &reply)) != 0 ||
       (ret = cl_updateValue(&meterSettings, (gxObject *)object, 2, &reply.dataValue)) != 0)
   {
-    //    printf("ReadObject failed %s\r\n", hlp_getErrorMessage(ret));
+#ifdef DEBUG_MSG
+    debug_printf("ReadObject failed %s\r\n", hlp_getErrorMessage(ret));
+#endif
   }
   mes_clear(&data);
   reply_clear(&reply);
@@ -527,7 +579,9 @@ int com_readProfileGenerics()
     ret = com_read((gxObject *)pg, 7);
     if (ret != DLMS_ERROR_CODE_OK)
     {
-      printf("Failed to read object %s %s attribute index %d\r\n", str, ln, 7);
+#ifdef DEBUG_MSG
+      debug_printf("Failed to read object %s %s attribute index %d\r\n", str, ln, 7);
+#endif
       //Do not clear objects list because it will free also objects from association view list.
       oa_empty(&objects);
       return ret;
@@ -536,12 +590,16 @@ int com_readProfileGenerics()
     ret = com_read((gxObject *)pg, 8);
     if (ret != DLMS_ERROR_CODE_OK)
     {
-      printf("Failed to read object %s %s attribute index %d\r\n", str, ln, 8);
+#ifdef DEBUG_MSG
+      debug_printf("Failed to read object %s %s attribute index %d\r\n", str, ln, 8);
+#endif
       //Do not clear objects list because it will free also objects from association view list.
       oa_empty(&objects);
       return ret;
     }
-    printf("Entries: %ld/%ld\r\n", pg->entriesInUse, pg->profileEntries);
+#ifdef DEBUG_MSG
+    debug_printf("Entries: %ld/%ld\r\n", pg->entriesInUse, pg->profileEntries);
+#endif
     //If there are no columns or rows.
     if (pg->entriesInUse == 0 || pg->captureObjects.size == 0)
     {
