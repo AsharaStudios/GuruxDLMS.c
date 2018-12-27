@@ -232,3 +232,8 @@ GuruxDLMSServerExample/VS/data.csv
 *.db-shm
 *.db-wal
 *.zip
+
+######################
+# Visual Studio Code #
+######################
+.vscode/
