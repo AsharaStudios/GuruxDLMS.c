@@ -237,3 +237,9 @@ GuruxDLMSServerExample/VS/data.csv
 # Visual Studio Code #
 ######################
 .vscode/
+
+########
+# mbed #
+########
+
+mbed-os/
