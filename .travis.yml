@@ -41,8 +41,12 @@ matrix:
     cache: pip
     sudo: false
     install:
+    - sudo add-apt-repository ppa:team-gcc-arm-embedded/ppa
+    - sudo apt update
+    - sudo apt install gcc-arm-embedded # gcc-arm-none-eabi
     - pip install -U platformio
     - platformio update
+    - pip install -r mbed-os/requirements.txt
     script:
     - platformio run -d Arduino_IDE/client -e mega
     - platformio run -d Arduino_IDE/client -e tiva
