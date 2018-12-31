@@ -1,13 +1,3 @@
-# install:
-# - sudo add-apt-repository ppa:team-gcc-arm-embedded/ppa
-# - sudo apt-get update
-# - sudo apt install gcc-arm-embedded # gcc-arm-none-eabi
-# - pip install -U mbed-cli
-# - mbed deploy # The results of this line should be cached
-# - cd mbed-os
-# - sudo pip install -r requirements.txt
-# - cd ..
-
 matrix:
   include:
 
