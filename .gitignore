@@ -235,3 +235,4 @@ GuruxDLMSServerExample/VS/data.csv
 # mbed #
 ########
 BUILD/
+mbed-os/

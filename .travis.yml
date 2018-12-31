@@ -7,16 +7,17 @@ matrix:
       submodules: false
     language: c
     compiler: gcc
-    script:
+    install:
     - mkdir development/lib development/obj
-    - make -C development
     - mkdir GuruxDLMSClientExample/obj GuruxDLMSClientExample/bin
-    - make -C GuruxDLMSClientExample
     - mkdir GuruxDLMSServerExample/obj GuruxDLMSServerExample/bin
-    - make -C GuruxDLMSServerExample
     - mkdir GuruxDLMSSimpleServerExample/obj GuruxDLMSSimpleServerExample/bin
-    - make -C GuruxDLMSSimpleServerExample
     # - mkdir GuruxDLMSPushExample/obj GuruxDLMSPushExample/bin
+    script:
+    - make -C development
+    - make -C GuruxDLMSClientExample
+    - make -C GuruxDLMSServerExample
+    - make -C GuruxDLMSSimpleServerExample
     # - make -C GuruxDLMSPushExample
 
   - name: "PlatformIO (Arduino IDE / Energia) Client/Server Examples"
