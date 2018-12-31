@@ -47,9 +47,9 @@ matrix:
     - pip -V
     - platformio --version
     script:
-    - platformio run -d Arduino_IDE/client -e mega
-    - platformio run -d Arduino_IDE/client -e tiva
-    - platformio run -d Arduino_IDE/server
+    - platformio run -v -d Arduino_IDE/client -e mega
+    - platformio run -v -d Arduino_IDE/client -e tiva
+    - platformio run -v -d Arduino_IDE/server
 
   - name: "mbed Client/Server Examples"
     language: python
