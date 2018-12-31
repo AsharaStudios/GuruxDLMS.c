@@ -16,19 +16,19 @@ install:
 - pip install -U platformio # mbed-cli
 - platformio update
 
-jobs:
+matrix:
   include:
   - stage: "Embedded Platforms"
     language: python
     python: 2.7
-    cache:
-      directories:
-      - "~/.platformio"
-  - name: "Client Example on Arduino Mega"
     script: platformio run -d Arduino_IDE/client -e mega
   - name: "Client Example on TI's Tiva C Launchpad"
+    language: python
+    python: 2.7
     script: platformio run -d Arduino_IDE/client -e tiva
   - name: "Server Example on Arduino Mega"
+    language: python
+    python: 2.7
     script: platformio run -d Arduino_IDE/server
 #TODO: Add mbed examples
   # - name: "Client Example on mbed"
@@ -37,15 +37,12 @@ jobs:
   # - name: "Server Example on mbed"
   #   script:
   #   - mbed compile -t GCC_ARM -m K64F
-
-  - stage: "C base"
+  - name: "C base"
     language: c
     compiler: gcc
-  - script:
-    - cd development
-    - mkdir lib obj
-    - make
-    - cd ..
+    script:
+    - mkdir development/lib development/obj
+    - make -C development
 #   allow_failures: "Examples"
 #   - script:
 #     - cd GuruxDLMSClientExample
