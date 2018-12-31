@@ -57,7 +57,7 @@ matrix:
     - sudo apt update
     - sudo apt install -y gcc-arm-embedded # gcc-arm-none-eabi
     - pip install -U mbed-cli
-    - pip install -r mbed-os/requirements.txt
+    - pip install -r mbed/mbed-os/requirements.txt
     script:
     - cd mbed/GuruxDLMSClientExample
     - mbed compile -t GCC_ARM -m K64F
