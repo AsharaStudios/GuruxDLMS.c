@@ -42,6 +42,8 @@ matrix:
     install:
     - pip install -U platformio
     - platformio update
+    - pip -V
+    - platformio --version
     script:
     - platformio run -d Arduino_IDE/client -e mega
     - platformio run -d Arduino_IDE/client -e tiva
@@ -59,6 +61,8 @@ matrix:
     - sudo apt install -y gcc-arm-embedded # gcc-arm-none-eabi
     - pip install -U mbed-cli
     - pip install -r mbed/mbed-os/requirements.txt
+    - pip -V
+    - mbed --version
     script:
     - cd mbed/GuruxDLMSClientExample
     - mbed compile -t GCC_ARM -m K64F
