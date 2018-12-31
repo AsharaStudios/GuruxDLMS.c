@@ -1,8 +1,8 @@
 language: python
 python: 2.7
-  cache:
-    directories:
-    - "~/.platformio"
+cache:
+  directories:
+  - "~/.platformio"
 # install:
 # - sudo add-apt-repository ppa:team-gcc-arm-embedded/ppa
 # - sudo apt-get update
@@ -20,7 +20,6 @@ install:
 
 jobs:
   include:
-
   - stage: "Embedded Platforms"
     name: "Client Example on Arduino Mega"
     script: platformio run -d Arduino_IDE/client -e mega
@@ -36,29 +35,30 @@ jobs:
   #   script:
   #   - mbed compile -t GCC_ARM -m K64F
 
-language: c
-compiler: gcc
+# language: c
+# compiler: gcc
 
-jobs:
-  include:
-  - script:
-    - cd development
-    - mkdir lib obj
-    - make
-    - cd ..
-  allow_failures: "Examples"
-  - script:
-    - cd GuruxDLMSClientExample
-    - mkdir obj bin
-    - make
-    - cd ..
-  - script:
-    - cd GuruxDLMSServerExample
-    - mkdir obj bin
-    - make
-    - cd ..
-  - script:
-    - cd GuruxDLMSSimpleServerExample
-    - mkdir obj bin
-    - make
-    - cd ..
+# jobs:
+#   include:
+#   - stage: "C base"
+#   - script:
+#     - cd development
+#     - mkdir lib obj
+#     - make
+#     - cd ..
+#   allow_failures: "Examples"
+#   - script:
+#     - cd GuruxDLMSClientExample
+#     - mkdir obj bin
+#     - make
+#     - cd ..
+#   - script:
+#     - cd GuruxDLMSServerExample
+#     - mkdir obj bin
+#     - make
+#     - cd ..
+#   - script:
+#     - cd GuruxDLMSSimpleServerExample
+#     - mkdir obj bin
+#     - make
+#     - cd ..
