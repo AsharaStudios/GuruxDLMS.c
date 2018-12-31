@@ -17,6 +17,8 @@ matrix:
   include:
   - stage:
     name: "C base and examples"
+    git:
+      submodules: false
     language: c
     compiler: gcc
     script:
@@ -31,6 +33,8 @@ matrix:
     # - mkdir GuruxDLMSPushExample/obj GuruxDLMSPushExample/bin
     # - make -C GuruxDLMSPushExample
   - name: "PlatformIO (Arduino IDE / Energia) Client/Server Examples"
+    git:
+      submodules: false
     language: python
     python: 2.7
     sudo: false
