@@ -24,7 +24,7 @@ matrix:
     - mkdir GuruxDLMSClientExample/obj GuruxDLMSClientExample/bin
     - make -C GuruxDLMSClientExample
     - mkdir GuruxDLMSServerExample/obj GuruxDLMSServerExample/bin
-    - make -C GuruxDLMSCServerExample
+    - make -C GuruxDLMSServerExample
     - mkdir GuruxDLMSSimpleServerExample/obj GuruxDLMSSimpleServerExample/bin
     - make -C GuruxDLMSSimpleServerExample
   - name: "Client Example on Arduino Mega"
