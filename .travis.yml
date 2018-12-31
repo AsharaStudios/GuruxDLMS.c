@@ -1,31 +1,53 @@
+language: python
+python: 2.7
+  cache:
+    directories:
+    - "~/.platformio"
+# install:
+# - sudo add-apt-repository ppa:team-gcc-arm-embedded/ppa
+# - sudo apt-get update
+# - sudo apt install gcc-arm-embedded # gcc-arm-none-eabi
+# - pip install -U mbed-cli
+# - mbed deploy # The results of this line should be cached
+# - cd mbed-os
+# - sudo pip install -r requirements.txt
+# - cd ..
+sudo: false
+install:
+- pip install -U platformio
+- platformio update
+# - pip install -U mbed-cli
+
 jobs:
   include:
 
-  - stage: "Base Compiling"
-    language: c
-    compiler: gcc
-    name: "Library Building"
-    script:
+  - stage: "Embedded Platforms"
+    name: "Client Example on Arduino Mega"
+    script: platformio run -d Arduino_IDE/client -e mega
+  - name: "Client Example on TI's Tiva C Launchpad"
+    script: platformio run -d Arduino_IDE/client -e tiva
+  - name: "Server Example on Arduino Mega"
+    script: platformio run -d Arduino_IDE/server
+#TODO: Add mbed examples
+  # - name: "Client Example on mbed"
+  #   script:
+  #   - mbed compile -t GCC_ARM -m K64F
+  # - name: "Server Example on mbed"
+  #   script:
+  #   - mbed compile -t GCC_ARM -m K64F
+
+language: c
+compiler: gcc
+
+jobs:
+  include:
+  - script:
     - cd development
     - mkdir lib obj
     - make
     - cd ..
-  - name: "PlatformIO client on Arduino Mega"
-    language: python
-    python: 2.7
-    sudo: false
-    cache:
-      directories:
-      - "~/.platformio"
-    install:
-    - pip install -U platformio
-    - platformio update
-    script: platformio run -d Arduino_IDE/client -e mega
-  - script: platformio run -d Arduino_IDE/client -e tiva
-  - script: platformio run -d Arduino_IDE/server
-
-  - stage: "Examples"
-    script:
+  allow_failures: "Examples"
+  - script:
     - cd GuruxDLMSClientExample
     - mkdir obj bin
     - make
