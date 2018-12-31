@@ -2,6 +2,7 @@ language: none
 cache:
   directories:
   - "~/.platformio"
+  - "~/.mbed"
 # install:
 # - sudo add-apt-repository ppa:team-gcc-arm-embedded/ppa
 # - sudo apt-get update
@@ -15,7 +16,7 @@ cache:
 matrix:
   include:
   - stage:
-    name: "C base"
+    name: "C base and examples"
     language: c
     compiler: gcc
     script:
@@ -27,31 +28,20 @@ matrix:
     - make -C GuruxDLMSServerExample
     - mkdir GuruxDLMSSimpleServerExample/obj GuruxDLMSSimpleServerExample/bin
     - make -C GuruxDLMSSimpleServerExample
-  - name: "Client Example on Arduino Mega"
+    # - mkdir GuruxDLMSPushExample/obj GuruxDLMSPushExample/bin
+    # - make -C GuruxDLMSPushExample
+  - name: "PlatformIO (Arduino IDE / Energia) Client/Server Examples"
     language: python
     python: 2.7
     sudo: false
     install:
     - pip install -U platformio
     - platformio update
-    script: platformio run -d Arduino_IDE/client -e mega
-  - name: "Client Example on TI's Tiva C Launchpad"
-    language: python
-    python: 2.7
-    sudo: false
-    install:
-    - pip install -U platformio
-    - platformio update
-    script: platformio run -d Arduino_IDE/client -e tiva
-  - name: "Server Example on Arduino Mega"
-    language: python
-    python: 2.7
-    sudo: false
-    install:
-    - pip install -U platformio
-    - platformio update
-    script: platformio run -d Arduino_IDE/server
-  # - name: "Client Example on mbed"
+    script:
+    - platformio run -d Arduino_IDE/client -e mega
+    - platformio run -d Arduino_IDE/client -e tiva
+    - platformio run -d Arduino_IDE/server
+  # - name: "mbed Client/Server Examples"
   #   language: python
   #   python: 2.7
   #   sudo: false
@@ -59,29 +49,7 @@ matrix:
   #   - pip install -U mbed-cli
   #   - platformio update
   #   script:
+  #   - cd mbed/GuruxDLMSClientExample
   #   - mbed compile -t GCC_ARM -m K64F
-  # - name: "Server Example on mbed"
-  #   language: python
-  #   python: 2.7
-  #   sudo: false
-  #   install:
-  #   - pip install -U mbed-cli
-  #   - platformio update
-  #   script:
+  #   - cd ../GuruxDLMSServerExample
   #   - mbed compile -t GCC_ARM -m K64F
-#   allow_failures: "Examples"
-#   - script:
-#     - cd GuruxDLMSClientExample
-#     - mkdir obj bin
-#     - make
-#     - cd ..
-#   - script:
-#     - cd GuruxDLMSServerExample
-#     - mkdir obj bin
-#     - make
-#     - cd ..
-#   - script:
-#     - cd GuruxDLMSSimpleServerExample
-#     - mkdir obj bin
-#     - make
-#     - cd ..
