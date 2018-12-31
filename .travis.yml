@@ -14,9 +14,8 @@ cache:
 # - cd ..
 sudo: false
 install:
-- pip install -U platformio
+- pip install -U platformio # mbed-cli
 - platformio update
-# - pip install -U mbed-cli
 
 jobs:
   include:
@@ -35,17 +34,17 @@ jobs:
   #   script:
   #   - mbed compile -t GCC_ARM -m K64F
 
-# language: c
-# compiler: gcc
+language: c
+compiler: gcc
 
-# jobs:
-#   include:
-#   - stage: "C base"
-#   - script:
-#     - cd development
-#     - mkdir lib obj
-#     - make
-#     - cd ..
+jobs:
+  include:
+  - stage: "C base"
+  - script:
+    - cd development
+    - mkdir lib obj
+    - make
+    - cd ..
 #   allow_failures: "Examples"
 #   - script:
 #     - cd GuruxDLMSClientExample
