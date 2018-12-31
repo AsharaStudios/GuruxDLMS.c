@@ -54,7 +54,6 @@ matrix:
     sudo: false
     install:
     - pip install -U mbed-cli
-    - mbed update
     script:
     - cd mbed/GuruxDLMSClientExample
     - mbed compile -t GCC_ARM -m K64F
