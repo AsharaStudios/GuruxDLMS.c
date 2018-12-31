@@ -219,15 +219,8 @@ pip-log.txt
 .mr.developer.cfg
 *.a
 *.db
-GuruxDLMSServerExample/VS/GuruxDLMSServerExample.VC.db
-GuruxDLMSServerExample/VS/GuruxDLMSServerExample.VC.db
 GuruxDLMSServerExample/VS/GuruxDLMSServerExample.VC.VC.opendb
 *.opendb
-*.db
-GuruxDLMSClientExample/VS/GuruxDLMClientExample.VC.db
-*.db
-GuruxDLMSClientExample/VS/GuruxDLMClientExample.VC.db
-*.db
 GuruxDLMSServerExample/VS/data.csv
 *.db-shm
 *.db-wal
@@ -241,5 +234,4 @@ GuruxDLMSServerExample/VS/data.csv
 ########
 # mbed #
 ########
-
-mbed-os/
+BUILD/
