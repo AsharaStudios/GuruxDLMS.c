@@ -49,10 +49,9 @@ matrix:
       apt: true
       directories:
       - "~/.mbed"
-      - "mbed/mbed-os"
     sudo: false
     install:
-    - if [ ! -d mbed/mbed-os ]; then git clone --depth=1 --branch mbed_lib_rev164 https://github.com/ARMmbed/mbed-os.git mbed/mbed-os; fi
+    - git clone --depth=1 --branch mbed_lib_rev164 https://github.com/ARMmbed/mbed-os.git mbed/mbed-os
     - sudo add-apt-repository -y ppa:team-gcc-arm-embedded/ppa
     - sudo apt update
     - sudo apt install -y gcc-arm-embedded # gcc-arm-none-eabi
