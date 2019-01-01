@@ -12,13 +12,13 @@ matrix:
     - mkdir GuruxDLMSClientExample/obj GuruxDLMSClientExample/bin
     - mkdir GuruxDLMSServerExample/obj GuruxDLMSServerExample/bin
     - mkdir GuruxDLMSSimpleServerExample/obj GuruxDLMSSimpleServerExample/bin
-    # - mkdir GuruxDLMSPushExample/obj GuruxDLMSPushExample/bin
+    - mkdir GuruxDLMSPushExample/obj GuruxDLMSPushExample/bin
     script:
     - make -C development
     - make -C GuruxDLMSClientExample
     - make -C GuruxDLMSServerExample
     - make -C GuruxDLMSSimpleServerExample
-    # - make -C GuruxDLMSPushExample
+    - make -C GuruxDLMSPushExample
 
   - name: "PlatformIO (Arduino IDE / Energia) Client/Server Examples"
     language: python

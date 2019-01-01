@@ -47,6 +47,11 @@
 #include <errno.h> // Error number definitions
 #endif
 
+#define PDU_BUFFER_SIZE 1024
+#define WRAPPER_BUFFER_SIZE 8 + PDU_BUFFER_SIZE
+unsigned char ln47frameBuff[WRAPPER_BUFFER_SIZE];
+unsigned char ln47pduBuff[PDU_BUFFER_SIZE];
+
 /**
 * Close socket.
 */
@@ -124,7 +129,7 @@ int test()
     clock.base.objectType = DLMS_OBJECT_TYPE_CLOCK;
     hlp_setLogicalName(clock.base.logicalName, "0.0.1.0.0.255");
     cl_init(&cl, 1, 1, 1, DLMS_AUTHENTICATION_NONE, NULL, DLMS_INTERFACE_TYPE_WRAPPER);
-    svr_init(&con.settings, 1, DLMS_INTERFACE_TYPE_WRAPPER);
+    svr_init(&con.settings, 1, DLMS_INTERFACE_TYPE_WRAPPER, WRAPPER_BUFFER_SIZE, PDU_BUFFER_SIZE, ln47frameBuff, WRAPPER_BUFFER_SIZE, ln47pduBuff, PDU_BUFFER_SIZE);
     arr_push(&p.pushObjectList, key_init(&p, co_init(2, 0)));
     arr_push(&p.pushObjectList, key_init(&clock, co_init(2, 0)));
 

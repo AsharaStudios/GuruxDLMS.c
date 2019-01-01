@@ -15,6 +15,7 @@
 //---------------------------------------------------------------------------
 #include "../include/connection.h"
 #include "../../development/include/notify.h"
+#include "../../development/include/converters.h"
 
 #include <stdlib.h> // malloc and free needs this or error is generated.
 #include <stdio.h>
