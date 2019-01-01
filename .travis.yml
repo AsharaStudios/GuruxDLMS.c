@@ -5,8 +5,6 @@ matrix:
 
   - stage:
     name: "C base and examples"
-    git:
-      submodules: false
     language: c
     compiler: gcc
     install:
@@ -23,8 +21,6 @@ matrix:
     # - make -C GuruxDLMSPushExample
 
   - name: "PlatformIO (Arduino IDE / Energia) Client/Server Examples"
-    git:
-      submodules: false
     language: python
     python: 2.7
     cache:
