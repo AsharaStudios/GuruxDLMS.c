@@ -37,3 +37,45 @@ Read more about using header files in official GCC documentation:
 * Computed Includes
 
 https://gcc.gnu.org/onlinedocs/cpp/Header-Files.html
+
+# Debugging
+
+If you use Visual Studio Code, you can use [Cortex Debug Plugin](https://github.com/Marus/cortex-debug)
+for debugging, the configuration may be this (example for TivaC):
+
+```json
+  // launch.json (debug launch configurations for VScode)
+  // ...
+ "configurations": [
+        {
+            "cwd": "${workspaceRoot}",
+            "executable": ".pioenvs/lptm4c1230c3pm/firmware.elf",
+            "name": "Debug TivaC",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "openocd",
+            "svdFile": "~/.platformio/platforms/titiva/misc/svd/TM4C1230C3PM.svd",
+            "configFiles": [
+                "/usr/share/openocd/scripts/board/ek-lm4f120xl.cfg"
+            ]
+        },
+
+  // ...
+```
+
+You need openOCD and arm-none-eabi-gdb installed; 
+but if you use PlatformIO you can use the PIO packages changing the default path in the plugin:
+
+first install openOCD and arm-none-eabi-gdb packages:
+```bash
+$ ~/.platformio/penv/bin/platformio platform install --with-package tool-openocd titiva
+```
+
+then, configure Cortex Debug Plugin to include custom path for executables:
+```json
+    // setting.json (Visual Studio Code user configurations).
+    // ...
+    "cortex-debug.armToolchainPath": "~/.platformio/packages/toolchain-gccarmnoneeabi/bin",
+    "cortex-debug.openocdPath": "~/.platformio/packages/tool-openocd/bin/openocd"
+    // ...
+```
