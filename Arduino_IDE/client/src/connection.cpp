@@ -253,8 +253,10 @@ void com_reportError(const char *description,
   char ln[25];
   char type[30];
 #ifdef DEBUG_MSG
+#ifndef GX_DLMS_MICROCONTROLLER
   hlp_getLogicalNameToString(object->logicalName, ln);
   obj_typeToString((DLMS_OBJECT_TYPE)object->objectType, type);
+#endif
   debug_printf("%s %s %s:%d %s\r\n", description, type, ln, attributeOrdinal, err_toString(ret));
 #endif
 }
@@ -335,7 +337,9 @@ int com_method(
       (ret = com_readDataBlock(&messages, &reply)) != 0)
   {
 #ifdef DEBUG_MSG
+#ifndef GX_DLMS_MICROCONTROLLER
     printf("Method failed %s\r\n", hlp_getErrorMessage(ret));
+#endif
 #endif
   }
   mes_clear(&messages);
@@ -357,7 +361,9 @@ int com_readList(
     if ((ret = cl_readList(&meterSettings, list, &messages)) != 0)
     {
 #ifdef DEBUG_MSG
+#ifndef GX_DLMS_MICROCONTROLLER
       debug_printf("ReadList failed %s\r\n", hlp_getErrorMessage(ret));
+#endif
 #endif
     }
     else
@@ -414,7 +420,9 @@ int com_readRowsByEntry(
       (ret = cl_updateValue(&meterSettings, (gxObject *)object, 2, &reply.dataValue)) != 0)
   {
 #ifdef DEBUG_MSG
+#ifndef GX_DLMS_MICROCONTROLLER
     debug_printf("ReadObject failed %s\r\n", hlp_getErrorMessage(ret));
+#endif
 #endif
   }
   mes_clear(&data);
@@ -438,7 +446,9 @@ int com_readRowsByRange(
       (ret = cl_updateValue(&meterSettings, (gxObject *)object, 2, &reply.dataValue)) != 0)
   {
 #ifdef DEBUG_MSG
+#ifndef GX_DLMS_MICROCONTROLLER
     debug_printf("ReadObject failed %s\r\n", hlp_getErrorMessage(ret));
+#endif
 #endif
   }
   mes_clear(&data);
