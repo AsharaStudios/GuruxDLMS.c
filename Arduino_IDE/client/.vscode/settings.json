@@ -1,6 +1,6 @@
 {
     "terminal.integrated.env.linux": {
-        "PATH": "/home/syta/.platformio/penv/bin:/home/syta/.platformio/penv:/usr/local/bin:/usr/local/sbin:/usr/bin:/opt/android-sdk/emulator:/opt/android-sdk/platform-tools:/opt/android-sdk/tools:/opt/android-sdk/tools/bin:/usr/lib/jvm/default/bin:/opt/microchip/xc8/v2.00/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/var/lib/snapd/snap/bin:/home/syta/.gem/ruby/2.5.0/bin:/home/syta/go/bin:/opt/android-sdk/emulator:/opt/android-sdk/platform-tools:/opt/android-sdk/tools:/opt/android-sdk/tools/bin:/usr/lib/jvm/default/bin:/opt/microchip/xc8/v2.00/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl",
+        "PATH": "/home/alex/.platformio/penv/bin:/home/alex/.platformio/penv:/home/alex/bin:/home/alex/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/jvm/java-10-oracle/bin:/usr/lib/jvm/java-10-oracle/db/bin:/opt/microchip/xc8/v1.44/bin:/opt/microchip/xc8/v1.45/bin:/opt/microchip/xc8/v2.00/bin",
         "PLATFORMIO_CALLER": "vscode"
     },
     "files.associations": {
