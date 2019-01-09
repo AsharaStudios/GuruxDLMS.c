@@ -1,0 +1,17 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "cortex-debug",
+            "request": "launch",
+            "cwd": "${workspaceRoot}",
+            "executable": ".pioenvs/lptm4c1230c3pm/firmware.elf",
+            "name": "Debug TivaC",
+            "servertype": "openocd",
+            "svdFile": "~/.platformio/platforms/titiva/misc/svd/TM4C1230C3PM.svd",
+            "configFiles": [
+                "/usr/share/openocd/scripts/board/ek-lm4f120xl.cfg"
+            ]
+        }
+    ]
+}
