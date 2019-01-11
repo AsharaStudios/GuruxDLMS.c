@@ -31,8 +31,13 @@
 // Full text may be retrieved at http://www.gnu.org/licenses/gpl-2.0.txt
 //---------------------------------------------------------------------------
 
-// #include <Arduino.h>
+// Building flags defined in platformio.ini
+#if defined NANOboard || defined MEGAboard
+#include <Arduino.h>
+#elif defined TIVAboard
 #include <Energia.h>
+#include "rtc_func.h"
+#endif
 
 #include <dlmssettings.h>
 #include <variant.h>
@@ -42,7 +47,6 @@
 #include <gxobjects.h>
 
 #include "connection.h"
-#include "rtc_func.h"
 
 //Client don't need this.
 unsigned char svr_isTarget(
@@ -80,7 +84,9 @@ gxClock clock1;
 
 void setup()
 {
+  #ifdef TIVAboard
   initTime();
+  #endif
 
   // start serial port at 9600 bps:
   MAIN_SERIAL.begin(9600);

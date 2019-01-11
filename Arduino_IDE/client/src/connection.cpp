@@ -5,8 +5,12 @@
 #include <converters.h>
 #include <gxobjects.h>
 
-// #include <Arduino.h>
+// Building flags defined in platformio.ini
+#if defined NANOboard || defined MEGAboard
+#include <Arduino.h>
+#elif defined TIVAboard
 #include <Energia.h>
+#endif
 
 #include "connection.h"
 

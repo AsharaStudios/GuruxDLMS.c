@@ -1,67 +1,67 @@
-# Continuous Integration (CI) is the practice, in software
-# engineering, of merging all developer working copies with a shared mainline
-# several times a day < https://docs.platformio.org/page/ci/index.html >
-#
-# Documentation:
-#
-# * Travis CI Embedded Builds with PlatformIO
-#   < https://docs.travis-ci.com/user/integration/platformio/ >
-#
-# * PlatformIO integration with Travis CI
-#   < https://docs.platformio.org/page/ci/travis.html >
-#
-# * User Guide for `platformio ci` command
-#   < https://docs.platformio.org/page/userguide/cmd_ci.html >
-#
-#
-# Please choose one of the following templates (proposed below) and uncomment
-# it (remove "# " before each line) or use own configuration according to the
-# Travis CI documentation (see above).
-#
+cache: packages
 
+matrix:
+  include:
 
-#
-# Template #1: General project. Test it using existing `platformio.ini`.
-#
+  - stage:
+    name: "C base and examples"
+    language: c
+    compiler: gcc
+    install:
+    - mkdir development/lib development/obj
+    - mkdir GuruxDLMSClientExample/obj GuruxDLMSClientExample/bin
+    - mkdir GuruxDLMSServerExample/obj GuruxDLMSServerExample/bin
+    - mkdir GuruxDLMSSimpleServerExample/obj GuruxDLMSSimpleServerExample/bin
+    - mkdir GuruxDLMSPushExample/obj GuruxDLMSPushExample/bin
+    script:
+    - make -C development
+    - make -C GuruxDLMSClientExample
+    - make -C GuruxDLMSServerExample
+    - make -C GuruxDLMSSimpleServerExample
+    - make -C GuruxDLMSPushExample
 
-language: python
-python:
-    - "2.7"
-
-sudo: false
-cache:
-    directories:
-        - "~/.platformio"
-
-install:
+  - name: "PlatformIO (Arduino IDE / Energia) Client/Server Examples"
+    language: python
+    python: 2.7
+    cache:
+      pip: true
+      directories:
+      - "~/.platformio"
+      - "Arduino_IDE/*/.pioenvs"
+      - "Arduino_IDE/*/.piolibdeps"
+    sudo: false
+    install:
     - pip install -U platformio
     - platformio update
+    - pip -V
+    - platformio --version
+    script:
+    - platformio run -v -d Arduino_IDE/client -e mega
+    - platformio run -v -d Arduino_IDE/client -e tiva
+    - platformio run -v -d Arduino_IDE/server
 
-script:
-    - platformio run -d Arduino_IDE/client
-    - platformio run -d Arduino_IDE/server
-
-#
-# Template #2: The project is intended to be used as a library with examples.
-#
-
-# language: python
-# python:
-#     - "2.7"
-#
-# sudo: false
-# cache:
-#     directories:
-#         - "~/.platformio"
-#
-# env:
-#     - PLATFORMIO_CI_SRC=path/to/test/file.c
-#     - PLATFORMIO_CI_SRC=examples/file.ino
-#     - PLATFORMIO_CI_SRC=path/to/test/directory
-#
-# install:
-#     - pip install -U platformio
-#     - platformio update
-#
-# script:
-#     - platformio ci --lib="." --board=ID_1 --board=ID_2 --board=ID_N
+  - name: "mbed Client/Server Examples"
+    language: python
+    python: 2.7
+    cache:
+      pip: true
+      directories:
+      - "~/.mbed"
+    addons:
+      apt:
+        sources:
+          - sourceline: "ppa:team-gcc-arm-embedded/ppa"
+        packages:
+          - gcc-arm-embedded
+    sudo: false
+    install:
+    - git clone --depth=1 --branch mbed_lib_rev164 https://github.com/ARMmbed/mbed-os.git mbed/mbed-os
+    - pip install -U mbed-cli
+    - pip install -r mbed/mbed-os/requirements.txt
+    - pip -V
+    - mbed --version
+    script:
+    - cd mbed/GuruxDLMSClientExample
+    - mbed compile -t GCC_ARM -m K64F
+    - cd ../GuruxDLMSServerExample
+    - mbed compile -t GCC_ARM -m K64F
