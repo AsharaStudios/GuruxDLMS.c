@@ -89,9 +89,9 @@ void setup()
   #endif
 
   // start serial port at 9600 bps:
-  MAIN_SERIAL.begin(9600);
-  AUX_SERIAL.begin(9600);
-  DEBUG_SERIAL.begin(9600);
+  MAIN_SERIAL.begin(9600);  //Main traffic between microcontroller and dlms/cosem meter
+  AUX_SERIAL.begin(9600);   //To replicate DEBUG traffic
+  DEBUG_SERIAL.begin(9600); //For Human-readable error messages
   while (!(MAIN_SERIAL && AUX_SERIAL && DEBUG_SERIAL))
   {
     ; // wait for serial port to connect. Needed for native USB port only
@@ -112,6 +112,7 @@ void loop()
   ret = com_initializeConnection();
   if (ret != DLMS_ERROR_CODE_OK)
   {
+    DEBUG_SERIAL.println("Init Error");
     delay(2000);
     return;
   }
@@ -119,6 +120,7 @@ void loop()
   ret = com_read(&clock1.base, 2);
   if (ret != DLMS_ERROR_CODE_OK)
   {
+    DEBUG_SERIAL.println("Read Error");
     delay(2000);
     return;
   }
