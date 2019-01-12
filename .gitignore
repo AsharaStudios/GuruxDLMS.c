@@ -235,3 +235,10 @@ GuruxDLMSServerExample/VS/data.csv
 ########
 BUILD/
 mbed-os/
+
+##############
+# PlatformIO #
+##############
+.pio
+.pioenvs
+.piolibdeps
