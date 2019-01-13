@@ -27,8 +27,6 @@ matrix:
       pip: true
       directories:
       - "~/.platformio"
-      - "Arduino_IDE/*/.pioenvs"
-      - "Arduino_IDE/*/.piolibdeps"
     sudo: false
     install:
     - pip install -U platformio
@@ -60,11 +58,9 @@ matrix:
     - pip -V
     - mbed --version
     - ln -s . mbed/GuruxDLMSClientExample/dlms
-    - ln -s mbed/mbed-os mbed/GuruxDLMSClientExample/mbed-os
+    - ln -s ../mbed-os mbed/GuruxDLMSClientExample/mbed-os
     - ln -s . mbed/GuruxDLMSServerExample/dlms
-    - ln -s mbed/mbed-os mbed/GuruxDLMSServerExample/mbed-os
+    - ln -s ../mbed-os mbed/GuruxDLMSServerExample/mbed-os
     script:
-    - cd mbed/GuruxDLMSClientExample
-    - mbed compile -t GCC_ARM -m K64F
-    - cd ../GuruxDLMSServerExample
-    - mbed compile -t GCC_ARM -m K64F
+    - cd mbed/GuruxDLMSClientExample && mbed compile -t GCC_ARM -m K64F
+    - cd ../GuruxDLMSServerExample   && mbed compile -t GCC_ARM -m K64F
