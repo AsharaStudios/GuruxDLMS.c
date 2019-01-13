@@ -228,13 +228,14 @@ GuruxDLMSServerExample/VS/data.csv
 ######################
 # Visual Studio Code #
 ######################
-.vscode/
+.vscode
 
 ########
 # mbed #
 ########
-BUILD/
-mbed-os/
+BUILD
+mbed-os
+dlms
 
 ##############
 # PlatformIO #

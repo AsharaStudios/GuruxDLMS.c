@@ -59,6 +59,10 @@ matrix:
     - pip install -r mbed/mbed-os/requirements.txt
     - pip -V
     - mbed --version
+    - ln -s . mbed/GuruxDLMSClientExample/dlms
+    - ln -s mbed/mbed-os mbed/GuruxDLMSClientExample/mbed-os
+    - ln -s . mbed/GuruxDLMSServerExample/dlms
+    - ln -s mbed/mbed-os mbed/GuruxDLMSServerExample/mbed-os
     script:
     - cd mbed/GuruxDLMSClientExample
     - mbed compile -t GCC_ARM -m K64F
