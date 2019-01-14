@@ -28,5 +28,11 @@
         "flags": [
             "-Idevelopment/include"
         ]
-    }
+    },
+    "dependencies": [
+        {
+            "lib-from-repo": "AsharaStudios/DateTime_Library",
+            "framework": "energia"
+        }
+    ]
 }
