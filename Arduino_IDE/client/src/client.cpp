@@ -122,6 +122,7 @@ void loop()
     delay(2000);
     return;
   }
+ // DEBUG_SERIAL.println(time_toUnixTime(&clock1->time.value));
   com_close();
   delay(5000);
 }
