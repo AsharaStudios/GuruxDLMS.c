@@ -1,6 +1,6 @@
 #ifdef TIVAboard
 
-#include <sys/time.h>
+#include "rtc_func.h"
 #include <RTC_Library.h>
 
 // Define variables and constants
