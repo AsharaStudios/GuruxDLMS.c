@@ -84,9 +84,9 @@ gxClock clock1;
 
 void setup()
 {
-  #ifdef TIVAboard
+#ifdef TIVAboard
   initTime();
-  #endif
+#endif
 
   // start serial port at 9600 bps:
   MAIN_SERIAL.begin(9600);
@@ -101,12 +101,12 @@ void setup()
   //Set frame size.
   bb_capacity(&frameData, 128);
   cl_init(&meterSettings, LOGICAL_NAMES, CLIENT_ADDR, SERVER_ADDR, AUTH_DLMS, PASS_DLMS, DLMS_INTERFACE_TYPE_HDLC);
-
   cosem_init(&clock1.base, DLMS_OBJECT_TYPE_CLOCK, "0.0.1.0.0.255");
 }
 
 void loop()
 {
+
   int ret;
   //Initialize connection.
   ret = com_initializeConnection();
@@ -122,7 +122,7 @@ void loop()
     delay(2000);
     return;
   }
- // DEBUG_SERIAL.println(time_toUnixTime(&clock1->time.value));
+  DEBUG_SERIAL.println(time_toUnixTime(&(clock1.time.value)));
   com_close();
   delay(5000);
 }

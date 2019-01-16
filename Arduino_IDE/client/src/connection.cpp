@@ -132,7 +132,7 @@ int com_close()
   }
   reply_clear(&reply);
   mes_clear(&msg);
-  cl_clear(&meterSettings);
+  //cl_clear(&meterSettings); // comentado porque borra la contraseña
   return ret;
 }
 
