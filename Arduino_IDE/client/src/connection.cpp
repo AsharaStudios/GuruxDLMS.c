@@ -152,8 +152,8 @@ int com_readSerialPort(
     available = Serial1.available();
     if (available != 0)
     {
-      Serial1.readBytes((char *)(frameData.data + frameData.size), available); //TODO: desacoplar Arduino
-      Serial.write((const uint8_t *)(frameData.data + frameData.size), available);
+      MAIN_SERIAL.readBytes((char *)(frameData.data + frameData.size), available); //TODO: desacoplar Arduino
+      AUX_SERIAL.write((const uint8_t *)(frameData.data + frameData.size), available);
       frameData.size += available;
       //Search eop.
       if (frameData.size > 5)

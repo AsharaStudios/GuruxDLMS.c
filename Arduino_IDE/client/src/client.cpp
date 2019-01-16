@@ -48,6 +48,7 @@
 
 #include "connection.h"
 
+#ifndef SERIAL_MODE
 //Client don't need this.
 unsigned char svr_isTarget(
     dlmsSettings *settings,
@@ -81,13 +82,10 @@ gxClock clock1;
 #define SERVER_ADDR 32767
 #define AUTH_DLMS DLMS_AUTHENTICATION_LOW
 #define PASS_DLMS "WSD2129c"
+#endif
 
 void setup()
 {
-#ifdef TIVAboard
-  initTime();
-#endif
-
   // start serial port at 9600 bps:
   MAIN_SERIAL.begin(9600);
   AUX_SERIAL.begin(9600);
@@ -97,16 +95,41 @@ void setup()
     ; // wait for serial port to connect. Needed for native USB port only
   }
 
+#ifndef SERIAL_MODE
+#ifdef TIVAboard
+  initTime();
+#endif
+
   bb_init(&frameData);
   //Set frame size.
   bb_capacity(&frameData, 128);
   cl_init(&meterSettings, LOGICAL_NAMES, CLIENT_ADDR, SERVER_ADDR, AUTH_DLMS, PASS_DLMS, DLMS_INTERFACE_TYPE_HDLC);
   cosem_init(&clock1.base, DLMS_OBJECT_TYPE_CLOCK, "0.0.1.0.0.255");
+#endif
 }
+
+#ifdef SERIAL_MODE
+int available = 0;
+char data[256];
+#endif
 
 void loop()
 {
+#ifdef SERIAL_MODE
+  available = AUX_SERIAL.available();
+  if (available != 0)
+  {
+    AUX_SERIAL.readBytes(data, available); //TODO: desacoplar Arduino
+    MAIN_SERIAL.write((const uint8_t *)data, available);
+  }
 
+  available = MAIN_SERIAL.available();
+  if (available != 0)
+  {
+    MAIN_SERIAL.readBytes(data, available); //TODO: desacoplar Arduino
+    AUX_SERIAL.write((const uint8_t *)data, available);
+  }
+#else
   int ret;
   //Initialize connection.
   ret = com_initializeConnection();
@@ -125,4 +148,5 @@ void loop()
   DEBUG_SERIAL.println(time_toUnixTime(&(clock1.time.value)));
   com_close();
   delay(5000);
+#endif
 }
