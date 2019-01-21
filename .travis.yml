@@ -33,9 +33,10 @@ matrix:
     - platformio update
     - pip -V
     - platformio --version
+    - platformio lib -g install file://$(pwd)
     script:
-    - platformio ci -v -l "." -C Arduino_IDE/client/platformio.ini Arduino_IDE/client
-    - platformio ci -v -l "." -C Arduino_IDE/server/platformio.ini Arduino_IDE/server
+    - platformio ci -C Arduino_IDE/client/platformio.ini Arduino_IDE/client
+    - platformio ci -C Arduino_IDE/server/platformio.ini Arduino_IDE/server
 
   - name: "mbed Client/Server Examples"
     language: python
