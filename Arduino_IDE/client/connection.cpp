@@ -1,17 +1,3 @@
-#include <dlmssettings.h>
-#include <variant.h>
-#include <cosem.h>
-#include <client.h>
-#include <converters.h>
-#include <gxobjects.h>
-
-// Building flags defined in platformio.ini
-#if defined NANOboard || defined MEGAboard
-#include <Arduino.h>
-#elif defined TIVAboard
-#include <Energia.h>
-#endif
-
 #include "connection.h"
 
 #ifdef DEBUG_MSG
@@ -144,7 +130,6 @@ int com_readSerialPort(
   unsigned short available;
   unsigned char eopFound = 0;
   unsigned short lastReadIndex = 0;
-  int p = 0;
   frameData.size = 0;
   frameData.position = 0;
   do
@@ -183,7 +168,7 @@ int readDLMSPacket(
     gxByteBuffer *data,
     gxReplyData *reply)
 {
-  int index = 0, ret = DLMS_ERROR_CODE_OK;
+  int ret = DLMS_ERROR_CODE_OK;
   if (data->size == 0)
   {
     return DLMS_ERROR_CODE_OK;
@@ -567,7 +552,6 @@ int com_readProfileGenerics()
   int ret, pos;
   char str[50];
   char ln[25];
-  char *data = NULL;
   gxByteBuffer ba;
   objectArray objects;
   gxProfileGeneric *pg;
@@ -635,7 +619,6 @@ int com_readProfileGenerics()
 int com_readValue(gxObject *object, unsigned char index)
 {
   int ret;
-  char *data = NULL;
   ret = com_read(object, index);
   return ret;
 }
@@ -646,7 +629,6 @@ int com_readValues()
 {
   gxByteBuffer attributes;
   unsigned char ch;
-  char *data = NULL;
   gxObject *object;
   unsigned long index;
   int ret, pos;

@@ -10,7 +10,7 @@
         "type": "git",
         "url": "https://github.com/AsharaStudios/GuruxDLMS.c"
     },
-    "version": "1.0.0",
+    "version": "1.1.0",
     "license": "GPL-3.0",
     "frameworks": "*",
     "platforms": "*",
@@ -28,5 +28,11 @@
         "flags": [
             "-Idevelopment/include"
         ]
-    }
+    },
+    "dependencies": [
+        {
+            "lib-from-repo": "AsharaStudios/DateTime_Library",
+            "framework": "energia"
+        }
+    ]
 }

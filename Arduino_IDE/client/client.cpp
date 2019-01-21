@@ -32,19 +32,6 @@
 //---------------------------------------------------------------------------
 
 // Building flags defined in platformio.ini
-#if defined NANOboard || defined MEGAboard
-#include <Arduino.h>
-#elif defined TIVAboard
-#include <Energia.h>
-#include "rtc_func.h"
-#endif
-
-#include <dlmssettings.h>
-#include <variant.h>
-#include <cosem.h>
-#include <client.h>
-#include <converters.h>
-#include <gxobjects.h>
 
 #include "connection.h"
 
@@ -87,9 +74,9 @@ gxClock clock1;
 void setup()
 {
   // start serial port at 9600 bps:
-  MAIN_SERIAL.begin(9600);
-  AUX_SERIAL.begin(9600);
-  DEBUG_SERIAL.begin(9600);
+  MAIN_SERIAL.begin(9600);  //Main traffic between microcontroller and dlms/cosem meter
+  AUX_SERIAL.begin(9600);   //To replicate DEBUG traffic
+  DEBUG_SERIAL.begin(9600); //For Human-readable error messages
   while (!(MAIN_SERIAL && AUX_SERIAL && DEBUG_SERIAL))
   {
     ; // wait for serial port to connect. Needed for native USB port only
@@ -135,6 +122,7 @@ void loop()
   ret = com_initializeConnection();
   if (ret != DLMS_ERROR_CODE_OK)
   {
+    DEBUG_SERIAL.println("Init Error\n\r");
     delay(2000);
     return;
   }
@@ -142,6 +130,7 @@ void loop()
   ret = com_read(&clock1.base, 2);
   if (ret != DLMS_ERROR_CODE_OK)
   {
+    DEBUG_SERIAL.println("Read Error\n\r");
     delay(2000);
     return;
   }

@@ -5,7 +5,7 @@
             "type": "cortex-debug",
             "request": "launch",
             "cwd": "${workspaceRoot}",
-            "executable": ".pioenvs/lptm4c1230c3pm/firmware.elf",
+            "executable": ".pioenvs/tiva/firmware.elf",
             "name": "Debug TivaC",
             "servertype": "openocd",
             "svdFile": "~/.platformio/platforms/titiva/misc/svd/TM4C1230C3PM.svd",
