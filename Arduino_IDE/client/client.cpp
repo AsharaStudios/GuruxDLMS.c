@@ -32,19 +32,6 @@
 //---------------------------------------------------------------------------
 
 // Building flags defined in platformio.ini
-#if defined NANOboard || defined MEGAboard
-#include <Arduino.h>
-#elif defined TIVAboard
-#include <Energia.h>
-#include "rtc_func.h"
-#endif
-
-#include <dlmssettings.h>
-#include <variant.h>
-#include <cosem.h>
-#include <client.h>
-#include <converters.h>
-#include <gxobjects.h>
 
 #include "connection.h"
 

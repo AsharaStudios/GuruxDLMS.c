@@ -8,6 +8,13 @@
 #include <converters.h>
 #include <gxobjects.h>
 
+#if defined NANOboard || defined MEGAboard
+#include <Arduino.h>
+#elif defined TIVAboard
+#include <Energia.h>
+#include "rtc_func.h"
+#endif
+
 #define MAIN_SERIAL Serial1
 #define AUX_SERIAL Serial
 #define DEBUG_SERIAL Serial2
