@@ -1304,10 +1304,11 @@ int dlms_getHDLCAddress(
         }
     }
     //DLMS CCT test requires that client size is one byte.
-    if (isClientAddress && size != 1)
-    {
-        return DLMS_ERROR_CODE_INVALID_CLIENT_ADDRESS;
-    }
+    // TODO: validate with Itron requirements #custom
+    // if (isClientAddress && size != 1)
+    // {
+    //     return DLMS_ERROR_CODE_INVALID_CLIENT_ADDRESS;
+    // }
 
     if (size == 1)
     {
