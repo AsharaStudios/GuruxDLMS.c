@@ -27,18 +27,16 @@ matrix:
       pip: true
       directories:
       - "~/.platformio"
-      - "Arduino_IDE/*/.pioenvs"
-      - "Arduino_IDE/*/.piolibdeps"
     sudo: false
     install:
     - pip install -U platformio
     - platformio update
     - pip -V
     - platformio --version
+    - platformio lib -g install file://$(pwd)
     script:
-    - platformio run -v -d Arduino_IDE/client -e mega
-    - platformio run -v -d Arduino_IDE/client -e tiva
-    - platformio run -v -d Arduino_IDE/server
+    - platformio ci -C Arduino_IDE/client/platformio.ini Arduino_IDE/client
+    - platformio ci -C Arduino_IDE/server/platformio.ini Arduino_IDE/server
 
   - name: "mbed Client/Server Examples"
     language: python
@@ -60,8 +58,10 @@ matrix:
     - pip install -r mbed/mbed-os/requirements.txt
     - pip -V
     - mbed --version
+    - ln -s ../../development mbed/GuruxDLMSClientExample/dlms
+    - ln -s ../mbed-os mbed/GuruxDLMSClientExample/mbed-os
+    - ln -s ../../development mbed/GuruxDLMSServerExample/dlms
+    - ln -s ../mbed-os mbed/GuruxDLMSServerExample/mbed-os
     script:
-    - cd mbed/GuruxDLMSClientExample
-    - mbed compile -t GCC_ARM -m K64F
-    - cd ../GuruxDLMSServerExample
-    - mbed compile -t GCC_ARM -m K64F
+    - cd mbed/GuruxDLMSClientExample && mbed compile -t GCC_ARM -m K64F
+    - cd ../GuruxDLMSServerExample   && mbed compile -t GCC_ARM -m K64F
