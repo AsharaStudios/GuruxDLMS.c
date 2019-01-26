@@ -1304,10 +1304,11 @@ int dlms_getHDLCAddress(
         }
     }
     //DLMS CCT test requires that client size is one byte.
-    if (isClientAddress && size != 1)
-    {
-        return DLMS_ERROR_CODE_INVALID_CLIENT_ADDRESS;
-    }
+    //TODO: #custom modification because Itron meters don't follow the rule
+    // if (isClientAddress && size != 1)
+    // {
+    //     return DLMS_ERROR_CODE_INVALID_CLIENT_ADDRESS;
+    // }
 
     if (size == 1)
     {
@@ -1425,10 +1426,11 @@ int dlms_checkHdlcAddress(
             return DLMS_ERROR_CODE_FALSE;
         }
         // Check that server addresses match.
-        if (settings->serverAddress != (int)source)
-        {
-            return DLMS_ERROR_CODE_FALSE;
-        }
+        // TODO: #custom modifaction because Itron meters don't follow the rule
+        // if (settings->serverAddress != (int)source)
+        // {
+        //     return DLMS_ERROR_CODE_FALSE;
+        // }
     }
     return DLMS_ERROR_CODE_OK;
 }
